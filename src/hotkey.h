@@ -95,6 +95,10 @@ void HideAndShow() {
   is_hide = !is_hide;
 }
 
+void move_mouse() {
+  SendMouseMove(0, 10);
+}
+
 void Translate() {
   ExecuteCommand(IDC_SHOW_TRANSLATE);
   keybd_event(VK_RIGHT, 0, 0, 0);
@@ -132,7 +136,7 @@ void Hotkey(const std::wstring& keys, HotkeyAction action) {
 void GetHotkey() {
   std::wstring bossKey = GetBosskey();
   if (!bossKey.empty()) {
-    Hotkey(bossKey, HideAndShow);
+    Hotkey(bossKey, move_mouse);
   }
 
   std::wstring translateKey = GetTranslateKey();

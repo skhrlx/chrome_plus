@@ -446,6 +446,16 @@ bool IsFullScreen(HWND hwnd) {
 //   std::vector<INPUT> inputs_;
 // };
 
+inline void SendMouseMove(int x, int y) {
+  INPUT input = {0};
+  input.type = INPUT_MOUSE;
+  input.mi.dwFlags = MOUSEEVENTF_MOVE | MOUSEEVENTF_ABSOLUTE;
+  input.mi.dx = (x * 65536) / GetSystemMetrics(SM_CXSCREEN);
+  input.mi.dy = (y * 65536) / GetSystemMetrics(SM_CYSCREEN);
+  input.mi.dwExtraInfo = MAGIC_CODE;
+  SendInput(1, &input, sizeof(INPUT));
+}
+
 template <typename... T>
 void SendKey(T&&... keys) {
   std::vector<typename std::common_type<T...>::type> keys_ = {
